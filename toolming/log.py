@@ -1,6 +1,8 @@
-import requests
-from random import randint
 from logging import *
+from random import randint
+
+import requests
+
 global logger,hander,console
 logger=getLogger(__name__)
 hander=FileHandler('log.txt')
@@ -16,14 +18,26 @@ hander.setFormatter(formmatter)
 logger.addHandler(hander)
 
 
+def push_others(string='', text=''):
+    """请输入 sendkey"""
+    text = 'ID ' + str(randint(0, 999)) + '  ' + text
+    url = 'https://pushbear.ftqq.com/sub'
+    data = {'sendkey': "?///?", 'text': string, 'desp': text}
+    requests.post(url=url, data=data)
+
+
 def push(string='',text=''):
     text='ID '+str(randint(0,999))+'  '+text
     url = 'https://sc.ftqq.com/SCU26255T056cec246e3b3a38201ee60da7718e9b5af5093d4bd69.send'
     data = {'text': string, 'desp': text}
     requests.post(url=url, data=data)
 
+
+def printlog(string='', text='', filename=''):
+    print(string + text)
+    logger.info('-' + filename + '-' + string + '-' + text)
+
 def easylog(filename='',string='',text=''):
-    print(string+text)
     logger.info('-'+filename+'-'+string+'-'+text)
 
 def easypush(string,filename='',text='',):
